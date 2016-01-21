@@ -1,0 +1,51 @@
+
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Agregar Cuenta</h4>
+            </div>
+            <div class="modal-body row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label">Clave:</label>
+                    <input type="text" class="form-control" ng-model="nvacta.clave" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label">Descripción:</label>
+                    <input type="text" class="form-control" ng-model="nvacta.descripcion" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label">Tipo de cuenta:</label>
+                    <div class="col-sm-12 btn-group" style="padding:0px;">
+                        <label class="btn btn-primary" ng-model="nvacta.id_tipo" uib-btn-radio="'1'">Acumulativa</label>
+                        <label class="btn btn-primary" ng-model="nvacta.id_tipo" uib-btn-radio="'2'">Detalle</label>
+                    </div>
+            	</div>
+            	<div class="form-group col-sm-6">
+                    <label class="control-label">Naturaleza de la cuenta:</label>
+                    <div class="col-sm-12 btn-group" style="padding:0px;">
+                        <label class="btn btn-primary" ng-model="nvacta.id_naturaleza" uib-btn-radio="'1'">Deudora</label>
+                        <label class="btn btn-primary" ng-model="nvacta.id_naturaleza" uib-btn-radio="'2'">Acreedora</label>
+                    </div>
+            	</div>
+                <div class="form-group col-sm-12">
+            		<label class="control-label">Rubros:</label>
+                    <ui-select multiple ng-model="nvacta.rubros" style="width: 100%;" title="Lista de Rubros">
+                        <ui-select-match>{{$item.descripcion}}</ui-select-match>
+                        <ui-select-choices repeat="rubro in rubros | filter: $select.search" >
+                            <div ng-bind-html="rubro.descripcion | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+            	</div>
+            	<div class="form-group col-sm-12">
+                    <label class="control-label">Sat:</label>
+                    <ui-select ng-model="nvacta.sat" style="width: 100%;" title="Lista de cuentas sat">
+                        <ui-select-match>{{$select.selected.nombre}}</ui-select-match>
+                        <ui-select-choices repeat="sat in csat | filter: $select.search" >
+                            <div ng-bind-html="sat.nombre | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+            	</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button">Guardar</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+            </div>

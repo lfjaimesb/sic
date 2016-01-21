@@ -1,0 +1,51 @@
+<div class="panel panel-primary" ng-controller="CuentasCtrl">
+    <div class="panel-heading">
+        Cuentas
+    </div>
+    <div class="panel-body panel-inmobil">
+        <div class="rows inmobil">
+            <div class="col-sm-9">
+                <ui-select ng-model="rubros.selected" style="width: 100%; margin:15px 0px;" on-select="SelRubro($item, $model)"  title="Lista de Rubros">
+                    <ui-select-match placeholder="Rubros">{{$select.selected.descripcion}}</ui-select-match>
+                    <ui-select-choices repeat="rubro in rubros | filter: $select.search" >
+                        <div ng-bind-html="rubro.descripcion | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-sm-3 text-right" style="margin: 15px 0px;">
+                <button type="button" name="btnElectronica" class="btn btn-success">C. Electrónica</button>
+                <button type="button" name="btnAddCta" class="btn btn-primary" ng-click="btnAdd()">Agregar Cuenta</button>
+
+            </div>
+            <div class="col-sm-12">
+                <table class="table" style="margin:0px;">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-4">Cuenta</th>
+                            <th class="col-sm-5">Descripción</th>
+                            <th class="col-sm-2">Saldo Final</th>
+                            <th class="col-sm-1"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-12 table-responsive">
+            <table class="table table-striped table-hover">
+                <tr ng-repeat="cuenta in cuentas" ng-show="verify(cuenta)">
+                    <td class="col-sm-4 arbol"><clave dato="{{cuenta.clave}}"></clave></td>
+                    <td class="col-sm-5">{{cuenta.descripcion}}</td>
+                    <td class="col-sm-2 text-right">Cuenta</td>
+                    <td class="col-sm-1">
+                        <button class="btn btn-primary btn-xs" style="margin-right:5px;">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </div>
+                        <button class="btn btn-danger btn-xs">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </div>
+                    <td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

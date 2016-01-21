@@ -1,0 +1,149 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+      Empresa
+  </div>
+  <div class="panel-body">
+		<form id="frmEmpresa" ng-submit="save()">
+			<fieldset>
+				<legend>Datos Generales</legend>
+				<div class="col-sm-2 text-center">
+                    <img src="img/logos/{{ empresa.logo }}" class="img-responsive img-thumbnail img-shw" style="width:120px; height:120px; border:2px solid #000; padding:5px; cursor:pointer;" ng-click="triggerUpload('flogo')"/>
+                    <input type="file" name="flogo" id="flogo" uploader-model='flogo' accept="image/*" style="display:none;"/>
+					<span style="font-size:10px; display:block;">(120 x 120 px)</span>
+				</div>
+                <div class="form-group col-sm-{{fisica ? '4' : '6' }}">
+                    <label class="control-label">Nombre: </label>
+                    <input type="text" class="form-control" placeholder="Nombre ó Razón Social" ng-model="empresa.nombre" required>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label class="control-label">R.F.C.: </label>
+                    <input type="text" class="form-control" placeholder="RFC" ng-model="empresa.rfc"  required>
+                </div>
+                <div class="form-group col-sm-2" ng-show="fisica">
+                    <label class="control-label">Curp: </label>
+                    <input type="text" class="form-control" placeholder="Curp" ng-model="empresa.curp" ng-required="fisica">
+                </div>
+                <div class="form-group col-sm-2">
+                    <label class="control-label">Tolerancia: </label>
+                    <input type="text" class="form-control"placeholder="Tolerancia" ng-model="empresa.tolerancia"  required>
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 1: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[0]" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 2: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[1]" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 3: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[2]"  />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 4: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[3]" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 5: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[4]" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 6: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[5]" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 7: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[6]" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 8: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[7]" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 9: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[8]" />
+                </div>
+                <div class="form-group col-sm-1">
+                    <label class="control-label">Nivel 10: </label>
+                    <input type="text" class="form-control" placeholder="" ng-model="empresa.nivel[9]" />
+                </div>
+			</fieldset>
+
+			<fieldset>
+				<legend>Domicilio</legend>
+                <div class="form-group col-sm-12">
+                    <label class="control-label">Dirección: </label>
+                    <input type="text" class="form-control" placeholder="Dirección" ng-model="empresa.direccion"  required>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label class="control-label">Colonia: </label>
+                    <input type="text" class="form-control" placeholder="Colonia" ng-model="empresa.colonia"  required>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label class="control-label">Código Postal: </label>
+                    <input type="text" class="form-control" placeholder="Código Postal" ng-model="empresa.cp"  required>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label class="control-label">Estado: </label>
+                    <input type="text" class="form-control" placeholder="Estado" ng-model="empresa.estado"  required>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label class="control-label">Contacto: </label>
+                    <input type="text" class="form-control" placeholder="Contacto" ng-model="empresa.contacto"  required>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label class="control-label">Teléfono: </label>
+                    <input type="tel" class="form-control" placeholder="Teléfono" ng-model="empresa.telefono"  required>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label class="control-label">Correo Electrónico: </label>
+                    <input type="email" class="form-control" placeholder="Correo Electrónico" ng-model="empresa.email"  required>
+                </div>
+			</fieldset>
+			<fieldset>
+				<legend>Incorporación Fiscal</legend>
+                <div class="form-group col-sm-4">
+                    <label class="control-label">Regimén Fiscal</label>
+                    <ui-select ng-model="empresa.regimen" theme="select2" style="width: 100%;"  title="Lista de Regimén">
+                        <ui-select-match placeholder="Regimén fiscal">{{$select.selected.regimen}}</ui-select-match>
+                        <ui-select-choices repeat="regime in regimenes | filter: $select.search" >
+                            <div ng-bind-html="regime.regimen | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+				<div class="form-group col-sm-8">
+                    <label class="control-label">Impuestos</label>
+                    <div class="checkbox">
+                       <label><input type="checkbox" ng-model="empresa.isr" /> Impuesto sobre la renta</label>
+                       <label class="col-sm-offset-2"><input type="checkbox" ng-model="empresa.iva" /> Impuesto al valor agregado</label>
+                     </div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Contabilidad Electronica</legend>
+                <div class="col-sm-2 text-center">
+                    <img src="img/key.png" class="img-responsive img-thumbnail img-shw" style="width:120px; height:120px; border:4px solid #{{empresa.bllave}}; padding:5px; cursor:pointer;" ng-click="triggerUpload('fkey')"  />
+					<span style="font-size:10px; display:block;">{{empresa.llave}}</span>
+                    <input type="file" name="fkey" id="fkey" uploader-model='fkey' accept=".key" style="display:none;" />
+				</div>
+                <div class="col-sm-2 text-center">
+                    <img src="img/cer.png" class="img-responsive img-thumbnail img-shw" style="width:120px; height:120px; border:4px solid #{{empresa.bcert}}; padding:5px; cursor:pointer;" ng-click="triggerUpload('fcert')" />
+					<span style="font-size:10px; display:block;">{{empresa.cert}}</span>
+                    <input type="file" name="fcert" id="fcert" uploader-model='fcert' accept=".cer" style="display:none;"/>
+				</div>
+                <div class="form-group col-sm-4">
+                    <label class="control-label">Contraseña de tu CSD: </label>
+                    <input type="password" class="form-control" placeholder="Contraseña de tu CSD" ng-model="empresa.csd">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="control-label">Vigencia CSD: </label><br/>
+                    <label class="control-label"><strong>{{ empresa.vigencia }}</strong></label>
+                </div>
+			</fieldset>
+			<div class="form-group text-right">
+                <br/><br/>
+				<button class="btn btn-primary" type="submit">Guardar</button>
+			</div>
+		</form>
+  </div>
+</div>
